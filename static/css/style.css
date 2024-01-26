@@ -1,0 +1,47 @@
+/* static/css/style.css */
+
+/* Основной контент страницы "О нас" */
+.container {
+    margin-top: 50px;
+}
+
+/* Заголовок "О нас" */
+.display-4 {
+    color: #007bff;
+}
+
+/* Параграф с вводным текстом */
+.lead {
+    font-size: 1.25rem;
+    color: #495057;
+}
+
+/* Колонки с миссией и ценностями */
+.col-md-6 {
+    margin-top: 20px;
+}
+
+/* Заголовки миссии и ценностей */
+h2 {
+    color: #007bff;
+}
+
+/* Список ценностей */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Кнопка добавить автомобиль на главной странице */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

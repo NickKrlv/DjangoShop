@@ -1,0 +1,34 @@
+{% extends 'products/base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">{{ product.name }}</h2>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">
+                        <strong>Price: {{ product.price }} аден</strong>
+
+                    </p>
+                    <p class="card-text">
+                        <strong>Created: {{ product.date_create }}</strong>
+                    </p>
+                    {% if product.owner == request.user or request.user.is_superuser or perms.products.change_product %}
+                    <a href="{% url 'products:edit' pk=product.pk %}" class="btn btn-primary">Изменить</a>
+                    <a href="{% url 'products:delete' pk=product.pk %}" class="btn btn-danger">Удалить</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

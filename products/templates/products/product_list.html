@@ -1,0 +1,36 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Product List{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Product List</h2>
+    {% if perms.products.add_product %}
+    <a href="{% url 'products:create' %}" class="btn btn-success mb-3">Добавить продукт</a>
+    {% endif %}
+
+    <div class="row">
+      {% for product in products %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            {% if product.image %}
+              <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'products:view' pk=product.pk %}">{{ product.name }}</a></h5>
+              <p class="card-text">{{ product.description }}</p>
+              <p class="card-text"><strong>{{ product.price }} руб.</strong></p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Дата создания: {{ product.date_create }}</small>
+            </div>
+          </div>
+        </div>
+
+        {% if forloop.counter|divisibleby:3 and not forloop.last %}
+          </div><div class="row">
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

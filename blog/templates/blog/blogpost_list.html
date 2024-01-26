@@ -1,0 +1,35 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Blog Posts{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Посты блога</h2>
+    <a href="{% url 'blog:blogpost_create' %}" class="btn btn-success mb-3">Добавить пост</a>
+
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if post.preview %}
+                <img src="{{ post.preview.url }}" class="card-img-top" alt="{{ post.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'blog:blogpost_detail' post.slug %}">{{ post.title }}</a>
+                    </h5>
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Опубликовано: {{ post.date_created }}</small>
+                </div>
+            </div>
+        </div>
+
+        {% if forloop.counter|divisibleby:3 and not forloop.last %}
+    </div>
+    <div class="row">
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
