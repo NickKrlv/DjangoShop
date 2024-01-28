@@ -1,17 +1,26 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.cache import cache
 from django.http import Http404
 from django.contrib import messages
+
+from config.settings import CACHE_ENABLED
 from products.models import Product, Version
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from products.forms import ProductForm, VersionForm
 from django.forms import inlineformset_factory, modelform_factory
 
+from products.services import get_cached_products
+
 
 class ProductListView(ListView):
     model = Product
     template_name = 'products/product_list.html'
-    context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['products'] = get_cached_products()
+        return context_data
 
 
 class ProductDetailView(DetailView):
